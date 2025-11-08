@@ -1,17 +1,23 @@
+# render.yaml
+
 services:
+  # 1. 所有的服务都应该在 'services:' 列表下
+  # 2. 每个服务定义都以一个 '-' 开头，并正确缩进
   - type: web
     name: gemini-api-proxy
     env: python
     plan: free
     region: oregon
-    buildCommand: |-
+    buildCommand: |
       pip install --upgrade pip setuptools wheel
       pip install -r requirements.txt
     startCommand: python -m app.runtime.server
     envVars:
+      # 3. 'envVars' 也需要是一个列表，每一项都以 '-' 开头
       - key: PYTHONUNBUFFERED
         value: "1"
       - key: PYTHONDONTWRITEBYTECODE
         value: "1"
       - key: STREAMLIT_INTERNAL_PORT
         value: "7000"
+
